@@ -102,7 +102,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedTime"];
+                    final _newValue = snapshot.data["loadedTime"] == null
+                        ? ""
+                        : snapshot.data["loadedTime"];
                     fromController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -162,7 +164,10 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedExtendTime"];
+                    final _newValue =
+                        snapshot.data["loadedExtendedTime"] == null
+                            ? ""
+                            : snapshot.data["loadedExtendedTime"];
                     extendController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -200,7 +205,6 @@ class _SettingsFormState extends State<SettingsForm> {
                   }
                 },
               ),
-
             ),
             // Row(
             //   children: <Widget>[
