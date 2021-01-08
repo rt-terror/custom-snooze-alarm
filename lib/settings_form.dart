@@ -164,10 +164,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue =
-                        snapshot.data["loadedExtendedTime"] == null
-                            ? ""
-                            : snapshot.data["loadedExtendedTime"];
+                    final _newValue = snapshot.data["loadedExtendTime"] == null
+                        ? ""
+                        : snapshot.data["loadedExtendTime"];
                     extendController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
