@@ -67,17 +67,20 @@ class _SettingsFormState extends State<SettingsForm> {
         title: Text('Repeating Custom Timer'),
       ),
       body: Form(
-          key: _formKey,
-          child: Column(children: [
+        key: _formKey,
+        child: Column(
+          children: [
             SizedBox(height: 30),
             Row(
               children: <Widget>[
                 SizedBox(width: 15),
-                Text("Timer interval:",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[100]))
+                Text(
+                  "Timer interval:",
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]),
+                )
               ],
             ),
             Padding(
@@ -90,11 +93,15 @@ class _SettingsFormState extends State<SettingsForm> {
                 controller: fromController,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(color: Colors.grey))),
+                  filled: true,
+                  fillColor: Colors.grey[300],
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
                 validator: (value) {
                   var n = int.tryParse(value);
                   if (n == null || n <= 0) {
@@ -109,11 +116,13 @@ class _SettingsFormState extends State<SettingsForm> {
             Row(
               children: <Widget>[
                 SizedBox(width: 15),
-                Text("Extend time:",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[100])),
+                Text(
+                  "Extend time:",
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]),
+                ),
               ],
             ),
             Padding(
@@ -126,11 +135,15 @@ class _SettingsFormState extends State<SettingsForm> {
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(color: Colors.grey))),
+                  filled: true,
+                  fillColor: Colors.grey[300],
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
                 validator: (value) {
                   var n = int.tryParse(value);
                   if (n == null || n <= 0) {
@@ -170,23 +183,28 @@ class _SettingsFormState extends State<SettingsForm> {
             // ),
             SizedBox(height: 80),
             RaisedButton(
-                onPressed: () {
-                  startCounter();
-                },
-                color: Colors.cyanAccent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, left: 20, right: 20),
-                    child: Text(
-                      "Start",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    )))
-          ])),
+              onPressed: () {
+                startCounter();
+              },
+              color: Colors.cyanAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 20, right: 20),
+                child: Text(
+                  "Start",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       // floatingActionButton: FloatingActionButton.extended(
       //   onPressed: () => startCounter(),
       //   icon: Icon(Icons.play_arrow),
