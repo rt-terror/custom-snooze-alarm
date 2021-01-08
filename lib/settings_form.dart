@@ -84,7 +84,7 @@ class _SettingsFormState extends State<SettingsForm> {
               children: <Widget>[
                 SizedBox(width: 15),
                 Text(
-                  "Timer interval:",
+                  "Timer duration:",
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class _SettingsFormState extends State<SettingsForm> {
               children: <Widget>[
                 SizedBox(width: 15),
                 Text(
-                  "Extend time:",
+                  "Snooze duration:",
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
