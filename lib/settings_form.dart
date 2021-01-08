@@ -22,6 +22,9 @@ class _SettingsFormState extends State<SettingsForm> {
   final extendController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
+  bool isFlashing = false;
+  String time;
+  String extendTime;
 
   //for data persistence
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -38,17 +41,25 @@ class _SettingsFormState extends State<SettingsForm> {
       await Navigator.push(context, MaterialPageRoute(builder: (context) {
         var from = int.tryParse(fromController.value.text);
         var extend = int.tryParse(extendController.value.text);
-        return TimerPage(from: from, extend: extend);
+        return TimerPage(
+          from: from,
+          extend: extend,
+          isFlashing: isFlashing,
+        );
       }));
       Screen.keepOn(false);
     }
   }
 
   Future<Map> getPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String loadedTime = prefs.getString("time");
-    String loadedExtendTime = prefs.getString("extendTime");
-    return {"loadedTime": loadedTime, "loadedExtendTime": loadedExtendTime};
+    if(time == null || extendTime == null){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String loadedTime = prefs.getString("time");
+      time = loadedTime == null ? "" : loadedTime;
+      String loadedExtendTime = prefs.getString("extendTime");
+      extendTime = loadedExtendTime == null ? "" : loadedExtendTime;
+    }
+    return {"time": time, "extendTime": extendTime};
   }
 
   Future<void> savePreferences() async {
@@ -61,22 +72,6 @@ class _SettingsFormState extends State<SettingsForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      // drawer: Drawer(
-      //     child: ListView(
-      //   children: <Widget>[
-      //     AboutListTile(
-      //       icon: Icon(Icons.info),
-      //       child: Text('About'),
-      //       applicationName: 'Repeating Custom Timer',
-      //       aboutBoxChildren: <Widget>[
-      //         Text(
-      //           aboutText,
-      //           style: TextStyle(fontSize: 12),
-      //         )
-      //       ],
-      //     )
-      //   ],
-      // )),
       appBar: AppBar(
         title: Text('Repeating Custom Timer'),
       ),
@@ -103,9 +98,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedTime"] == null
+                    final _newValue = snapshot.data["time"] == null
                         ? ""
-                        : snapshot.data["loadedTime"];
+                        : snapshot.data["time"];
                     fromController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -134,6 +129,11 @@ class _SettingsFormState extends State<SettingsForm> {
                         if (n == null || n <= 0) {
                           return 'Please enter a positive number.';
                         }
+                      },
+                      onChanged: (text){
+                        setState(() {
+                          time = text;
+                        });
                       },
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(extendFocus);
@@ -165,9 +165,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedExtendTime"] == null
+                    final _newValue = snapshot.data["extendTime"] == null
                         ? ""
-                        : snapshot.data["loadedExtendTime"];
+                        : snapshot.data["extendTime"];
                     extendController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -197,6 +197,11 @@ class _SettingsFormState extends State<SettingsForm> {
                           return 'Please enter a positive number.';
                         }
                       },
+                      onChanged: (text){
+                        setState(() {
+                          extendTime = text;
+                        });
+                      }
                     );
                   } else {
                     return Center(
@@ -206,35 +211,20 @@ class _SettingsFormState extends State<SettingsForm> {
                 },
               ),
             ),
-            // Row(
-            //   children: <Widget>[
-            //     SizedBox(width: 15),
-            //     Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
-            //   ],
-            // ),
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child:  TextFormField(
-            //     cursorColor: Colors.cyanAccent,
-            //     style: TextStyle(color: Colors.black),
-            //     controller: messageController,
-            //     focusNode: messageFocus,
-            //     textInputAction: TextInputAction.done,
-            //     onFieldSubmitted: (_) => startCounter(),
-            //     decoration: InputDecoration(
-            //         filled: true,
-            //         fillColor: Colors.grey[300],
-            //         enabledBorder: OutlineInputBorder(
-            //             borderRadius: BorderRadius.all(
-            //                 Radius.circular(10)
-            //             ),
-            //             borderSide: BorderSide(
-            //                 color: Colors.grey
-            //             )
-            //         )
-            //     ),
-            //   )
-            // ),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 15),
+                Text("Flashing background"),
+                Checkbox(
+                    activeColor: Colors.cyan,
+                    value: isFlashing,
+                    onChanged: (e) {
+                      setState(() {
+                        isFlashing = e;
+                      });
+                    }),
+              ],
+            ),
             SizedBox(height: 80),
             RaisedButton(
               onPressed: () async {
