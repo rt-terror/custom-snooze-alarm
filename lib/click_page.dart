@@ -10,12 +10,32 @@ class ClickPage extends StatefulWidget {
 }
 
 class _ClickPageState extends State<ClickPage> {
+  bool isCyanBackground = true;
+  Timer timer;
+  @override
+  void initState() {
+    super.initState();
+    timer = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        isCyanBackground = !isCyanBackground;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
+  }
+
   @override
   build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Repeating Custom Timer'),
       ),
+      backgroundColor:
+          isCyanBackground ? Colors.cyanAccent : Colors.redAccent[400],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
