@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 
 class ClickPage extends StatefulWidget {
@@ -14,9 +15,17 @@ class ClickPage extends StatefulWidget {
 class _ClickPageState extends State<ClickPage> {
   bool isCyanBackground = true;
   Timer timer;
+  AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
+
   @override
   void initState() {
     super.initState();
+    assetsAudioPlayer.open(
+        Playlist(audios: [
+          Audio("assets/audios/alarm.mp3"),
+        ]),
+        loopMode: LoopMode.playlist //loop the full playlist
+        );
     if (widget.isFlashing) {
       timer = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
         setState(() {
@@ -46,6 +55,7 @@ class _ClickPageState extends State<ClickPage> {
           Center(
             child: RaisedButton(
               onPressed: () {
+                assetsAudioPlayer.stop();
                 Navigator.pop(context);
               },
               // shape: RoundedRectangleBorder(
@@ -77,6 +87,7 @@ class _ClickPageState extends State<ClickPage> {
               color: Colors.white,
               onPressed: () {
                 //Pop 2 times
+                assetsAudioPlayer.stop();
                 int count = 0;
                 Navigator.of(context).popUntil((_) => count++ >= 2);
               },

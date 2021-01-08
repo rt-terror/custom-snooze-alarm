@@ -23,6 +23,8 @@ class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
   bool isFlashing = false;
+  String time;
+  String extendTime;
 
   //for data persistence
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -50,10 +52,14 @@ class _SettingsFormState extends State<SettingsForm> {
   }
 
   Future<Map> getPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String loadedTime = prefs.getString("time");
-    String loadedExtendTime = prefs.getString("extendTime");
-    return {"loadedTime": loadedTime, "loadedExtendTime": loadedExtendTime};
+    if(time == null || extendTime == null){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String loadedTime = prefs.getString("time");
+      time = loadedTime == null ? "" : loadedTime;
+      String loadedExtendTime = prefs.getString("extendTime");
+      extendTime = loadedExtendTime == null ? "" : loadedExtendTime;
+    }
+    return {"time": time, "extendTime": extendTime};
   }
 
   Future<void> savePreferences() async {
@@ -92,9 +98,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedTime"] == null
+                    final _newValue = snapshot.data["time"] == null
                         ? ""
-                        : snapshot.data["loadedTime"];
+                        : snapshot.data["time"];
                     fromController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -123,6 +129,11 @@ class _SettingsFormState extends State<SettingsForm> {
                         if (n == null || n <= 0) {
                           return 'Please enter a positive number.';
                         }
+                      },
+                      onChanged: (text){
+                        setState(() {
+                          time = text;
+                        });
                       },
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(extendFocus);
@@ -154,9 +165,9 @@ class _SettingsFormState extends State<SettingsForm> {
                 future: getPreferences(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    final _newValue = snapshot.data["loadedExtendTime"] == null
+                    final _newValue = snapshot.data["extendTime"] == null
                         ? ""
-                        : snapshot.data["loadedExtendTime"];
+                        : snapshot.data["extendTime"];
                     extendController.value = TextEditingValue(
                       text: _newValue,
                       selection: TextSelection.fromPosition(
@@ -186,6 +197,11 @@ class _SettingsFormState extends State<SettingsForm> {
                           return 'Please enter a positive number.';
                         }
                       },
+                      onChanged: (text){
+                        setState(() {
+                          extendTime = text;
+                        });
+                      }
                     );
                   } else {
                     return Center(
