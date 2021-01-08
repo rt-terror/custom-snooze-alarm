@@ -45,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                 Text("Please wake up on time.", style: TextStyle(color: Colors.grey[400], fontSize: 22),),
                 SizedBox(height: 80),
                 RaisedButton(onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/settingsForm');
+                  Navigator.of(context).pushNamed('/settingsForm');
                 },
                   color: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),

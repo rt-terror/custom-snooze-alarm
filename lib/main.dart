@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Click Timer',
       theme: ThemeData(
-          primaryColor: Colors.green,
+          primaryColor: Colors.grey[850],
           brightness: Brightness.dark,
-          accentColor: Colors.green,
-          buttonColor: Colors.green,
+          accentColor: Colors.cyanAccent,
+          buttonColor: Colors.white,
           accentColorBrightness: Brightness.dark),
           debugShowCheckedModeBanner: false,
       home: WelcomePage(),
