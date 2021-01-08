@@ -43,6 +43,13 @@ class _SettingsFormState extends State<SettingsForm> {
     }
   }
 
+  Future<Map> getPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String loadedTime = prefs.getString("Time");
+    String loadedExtendTime = prefs.getString("ExtendTime");
+    return {"loadedTime": loadedTime, "loadedExtendTime": loadedExtendTime};
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
