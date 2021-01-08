@@ -98,26 +98,39 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
               Text(
                 'Tap screen to extend time',
                 style: TextStyle(color: Theme.of(context).disabledColor),
-              )
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  setState(() {
+                    resetTimer(widget.from);
+                  });
+                  _key.currentState.showSnackBar(SnackBar(
+                      duration: Duration(seconds: 1),
+                      content: Text('Time reset.'),
+                      action: SnackBarAction(
+                        label: 'OK',
+                        onPressed: () {},
+                      )));
+                },
+                color: Colors.cyanAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  child: Text(
+                    "Reset",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          setState(() {
-            resetTimer(widget.from);
-          });
-          _key.currentState.showSnackBar(SnackBar(
-              duration: Duration(seconds: 1),
-              content: Text('Time reset.'),
-              action: SnackBarAction(
-                label: 'OK',
-                onPressed: () {},
-              )));
-        },
-        icon: Icon(Icons.settings_backup_restore),
-        label: Text('Reset'),
       ),
     );
   }
