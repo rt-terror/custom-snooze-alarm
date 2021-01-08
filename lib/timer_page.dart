@@ -49,7 +49,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ClickPage(message: widget.message);
     }));
-    resetTimer(widget.from);
+    resetTimer(widget.extend);
   }
 
   void resetTimer(int setpoint) {
