@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:screen/screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './timer_page.dart';
 
@@ -22,6 +23,9 @@ class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
   final messageFocus = FocusNode();
+
+  //for data persistence
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   void dispose() {
