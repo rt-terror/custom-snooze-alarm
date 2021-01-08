@@ -48,15 +48,15 @@ class _ClickPageState extends State<ClickPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.circular(50),
+              // ),
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 20,
                   bottom: 20,
-                  left: 90,
-                  right: 90,
+                  left: 92,
+                  right: 92,
                 ),
                 child: Text(
                   "Snooze",
@@ -70,10 +70,11 @@ class _ClickPageState extends State<ClickPage> {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 60,
           ),
           Center(
             child: RaisedButton(
+              color: Colors.white,
               onPressed: () {
                 //Pop 2 times
                 int count = 0;
@@ -84,10 +85,10 @@ class _ClickPageState extends State<ClickPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 10,
-                  left: 50,
-                  right: 50,
+                  top: 5,
+                  bottom: 5,
+                  left: 25,
+                  right: 25,
                 ),
                 child: Text(
                   "Exit",
