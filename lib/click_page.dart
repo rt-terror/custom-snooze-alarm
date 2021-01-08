@@ -27,7 +27,8 @@ class _ClickPageState extends State<ClickPage> {
         loopMode: LoopMode.playlist //loop the full playlist
         );
     if (widget.isFlashing) {
-      timer = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
+      timer =
+          new Timer.periodic(new Duration(milliseconds: 500), (Timer timer) {
         setState(() {
           isCyanBackground = !isCyanBackground;
         });
