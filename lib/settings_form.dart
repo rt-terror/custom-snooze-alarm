@@ -5,8 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './timer_page.dart';
 
 final String aboutText = """
-Created By: Adam Stevenson
-Created For: Thomas Sarlitto, Virtual Tax Preparer
+Created 2021-01 By: Nicholas Toh (nicktohzyu), James Tan, Andrea Tan 
+
+Based on code created 2019-03 by: Adam Stevenson, who created it for Thomas Sarlitto, Virtual Tax Preparer
 
 App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
     """;
