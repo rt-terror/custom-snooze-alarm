@@ -5,14 +5,13 @@ import 'click_page.dart';
 import 'countdown.dart';
 
 class TimerPage extends StatefulWidget {
-  TimerPage({Key key, this.from, this.extend, this.message}) : super(key: key) {
+  TimerPage({Key key, this.from, this.extend}) : super(key: key) {
     Screen.keepOn(true);
     print("TimerPage created");
   }
 
   final int from;
   final int extend;
-  final String message;
 
   @override
   _TimerPageState createState() => _TimerPageState();
@@ -47,7 +46,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
   Future<void> complete() async {
     print('Timer complete');
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ClickPage(message: widget.message);
+      return ClickPage();
     }));
     resetTimer(widget.extend);
   }
@@ -70,7 +69,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text("Prepare to ${widget.message}"),
+        title: Text("Counting down..."),
       ),
       body: GestureDetector(
         onTap: () {

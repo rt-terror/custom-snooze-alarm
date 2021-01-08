@@ -6,9 +6,7 @@ class ClickPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ClickPageState();
 
-  ClickPage({Key key, this.message}) : super(key: key);
-
-  final String message;
+  ClickPage({Key key}) : super(key: key);
 }
 
 class _ClickPageState extends State<ClickPage> {
@@ -21,13 +19,6 @@ class _ClickPageState extends State<ClickPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              widget.message,
-              textAlign: TextAlign.center,
-              style: new TextStyle(fontSize: 100.0),
-            ),
-          ),
           Center(
             child: RaisedButton(
               onPressed: () {
@@ -46,6 +37,7 @@ class _ClickPageState extends State<ClickPage> {
                 child: Text(
                   "Snooze",
                   style: TextStyle(
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 50,
                   ),

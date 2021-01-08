@@ -19,10 +19,8 @@ class SettingsForm extends StatefulWidget {
 class _SettingsFormState extends State<SettingsForm> {
   final fromController = TextEditingController();
   final extendController = TextEditingController();
-  final messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
-  final messageFocus = FocusNode();
 
   //for data persistence
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -31,7 +29,6 @@ class _SettingsFormState extends State<SettingsForm> {
   void dispose() {
     fromController.dispose();
     extendFocus.dispose();
-    messageFocus.dispose();
     super.dispose();
   }
 
@@ -40,8 +37,7 @@ class _SettingsFormState extends State<SettingsForm> {
       await Navigator.push(context, MaterialPageRoute(builder: (context) {
         var from = int.tryParse(fromController.value.text);
         var extend = int.tryParse(extendController.value.text);
-        return TimerPage(
-            from: from, extend: extend, message: messageController.value.text);
+        return TimerPage(from: from, extend: extend);
       }));
       Screen.keepOn(false);
     }
@@ -49,7 +45,6 @@ class _SettingsFormState extends State<SettingsForm> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[900],
       // drawer: Drawer(
@@ -72,129 +67,126 @@ class _SettingsFormState extends State<SettingsForm> {
         title: Text('Repeating Custom Timer'),
       ),
       body: Form(
-              key: _formKey,
-              child: Column(children: [
-                SizedBox(height: 30),
-                Row(
-                  children: <Widget>[
-                    SizedBox(width: 15),
-                    Text("Timer interval:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100]))
-                  ],
-                ),
-                Padding(
-                    padding: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    cursorColor: Colors.cyanAccent,
-                    style: TextStyle(color: Colors.black),
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    controller: fromController,
-                    textInputAction: TextInputAction.next,
-                    decoration:
-                    InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[300],
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)
-                            ),
-                            borderSide: BorderSide(
-                                color: Colors.grey
-                            )
-                        )
-                    ),
-                    validator: (value) {
-                      var n = int.tryParse(value);
-                      if (n == null || n <= 0) {
-                        return 'Please enter a positive number.';
-                      }
-                    },
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(extendFocus);
-                    },
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    SizedBox(width: 15),
-                    Text("Extend time:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    cursorColor: Colors.cyanAccent,
-                    style: TextStyle(color: Colors.black),
-                    controller: extendController,
-                    focusNode: extendFocus,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(messageFocus);
-                    },
-                    decoration:
-                    InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[300],
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)
-                            ),
-                            borderSide: BorderSide(
-                                color: Colors.grey
-                            )
-                        )
-                    ),
-                    validator: (value) {
-                      var n = int.tryParse(value);
-                      if (n == null || n <= 0) {
-                        return 'Please enter a positive number.';
-                      }
-                    },
-                  ),
-                ),
-                // Row(
-                //   children: <Widget>[
-                //     SizedBox(width: 15),
-                //     Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
-                //   ],
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.all(15),
-                //   child:  TextFormField(
-                //     cursorColor: Colors.cyanAccent,
-                //     style: TextStyle(color: Colors.black),
-                //     controller: messageController,
-                //     focusNode: messageFocus,
-                //     textInputAction: TextInputAction.done,
-                //     onFieldSubmitted: (_) => startCounter(),
-                //     decoration: InputDecoration(
-                //         filled: true,
-                //         fillColor: Colors.grey[300],
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.all(
-                //                 Radius.circular(10)
-                //             ),
-                //             borderSide: BorderSide(
-                //                 color: Colors.grey
-                //             )
-                //         )
-                //     ),
-                //   )
-                // ),
-                SizedBox(height: 80),
-                RaisedButton(
-                  onPressed: () {
-                    startCounter();
-                  },
-                  color: Colors.cyanAccent,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                      child: Text("Start", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),)
-                  )
-                )
-              ])),
+          key: _formKey,
+          child: Column(children: [
+            SizedBox(height: 30),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 15),
+                Text("Timer interval:",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[100]))
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: TextFormField(
+                cursorColor: Colors.cyanAccent,
+                style: TextStyle(color: Colors.black),
+                autofocus: true,
+                keyboardType: TextInputType.number,
+                controller: fromController,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[300],
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Colors.grey))),
+                validator: (value) {
+                  var n = int.tryParse(value);
+                  if (n == null || n <= 0) {
+                    return 'Please enter a positive number.';
+                  }
+                },
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(extendFocus);
+                },
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 15),
+                Text("Extend time:",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[100])),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: TextFormField(
+                cursorColor: Colors.cyanAccent,
+                style: TextStyle(color: Colors.black),
+                controller: extendController,
+                focusNode: extendFocus,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[300],
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Colors.grey))),
+                validator: (value) {
+                  var n = int.tryParse(value);
+                  if (n == null || n <= 0) {
+                    return 'Please enter a positive number.';
+                  }
+                },
+              ),
+            ),
+            // Row(
+            //   children: <Widget>[
+            //     SizedBox(width: 15),
+            //     Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
+            //   ],
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.all(15),
+            //   child:  TextFormField(
+            //     cursorColor: Colors.cyanAccent,
+            //     style: TextStyle(color: Colors.black),
+            //     controller: messageController,
+            //     focusNode: messageFocus,
+            //     textInputAction: TextInputAction.done,
+            //     onFieldSubmitted: (_) => startCounter(),
+            //     decoration: InputDecoration(
+            //         filled: true,
+            //         fillColor: Colors.grey[300],
+            //         enabledBorder: OutlineInputBorder(
+            //             borderRadius: BorderRadius.all(
+            //                 Radius.circular(10)
+            //             ),
+            //             borderSide: BorderSide(
+            //                 color: Colors.grey
+            //             )
+            //         )
+            //     ),
+            //   )
+            // ),
+            SizedBox(height: 80),
+            RaisedButton(
+                onPressed: () {
+                  startCounter();
+                },
+                color: Colors.cyanAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10, left: 20, right: 20),
+                    child: Text(
+                      "Start",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    )))
+          ])),
       // floatingActionButton: FloatingActionButton.extended(
       //   onPressed: () => startCounter(),
       //   icon: Icon(Icons.play_arrow),
