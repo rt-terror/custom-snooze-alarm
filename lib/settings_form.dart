@@ -43,6 +43,19 @@ class _SettingsFormState extends State<SettingsForm> {
     }
   }
 
+  Future<Map> getPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String loadedTime = prefs.getString("time");
+    String loadedExtendTime = prefs.getString("extendTime");
+    return {"loadedTime": loadedTime, "loadedExtendTime": loadedExtendTime};
+  }
+
+  Future<void> savePreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("time", fromController.text);
+    prefs.setString("extendTime", extendController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,31 +98,49 @@ class _SettingsFormState extends State<SettingsForm> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: TextFormField(
-                cursorColor: Colors.cyanAccent,
-                style: TextStyle(color: Colors.black),
-                autofocus: true,
-                keyboardType: TextInputType.number,
-                controller: fromController,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[300],
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                validator: (value) {
-                  var n = int.tryParse(value);
-                  if (n == null || n <= 0) {
-                    return 'Please enter a positive number.';
+              child: FutureBuilder(
+                future: getPreferences(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    final _newValue = snapshot.data["loadedTime"];
+                    fromController.value = TextEditingValue(
+                      text: _newValue,
+                      selection: TextSelection.fromPosition(
+                        TextPosition(offset: _newValue.length),
+                      ),
+                    );
+                    return TextFormField(
+                      cursorColor: Colors.cyanAccent,
+                      style: TextStyle(color: Colors.black),
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      controller: fromController,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey[300],
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                      validator: (value) {
+                        var n = int.tryParse(value);
+                        if (n == null || n <= 0) {
+                          return 'Please enter a positive number.';
+                        }
+                      },
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(extendFocus);
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
-                },
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(extendFocus);
                 },
               ),
             ),
@@ -127,30 +158,49 @@ class _SettingsFormState extends State<SettingsForm> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: TextFormField(
-                cursorColor: Colors.cyanAccent,
-                style: TextStyle(color: Colors.black),
-                controller: extendController,
-                focusNode: extendFocus,
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[300],
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-                validator: (value) {
-                  var n = int.tryParse(value);
-                  if (n == null || n <= 0) {
-                    return 'Please enter a positive number.';
+              child: FutureBuilder(
+                future: getPreferences(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    final _newValue = snapshot.data["loadedExtendTime"];
+                    extendController.value = TextEditingValue(
+                      text: _newValue,
+                      selection: TextSelection.fromPosition(
+                        TextPosition(offset: _newValue.length),
+                      ),
+                    );
+                    return TextFormField(
+                      cursorColor: Colors.cyanAccent,
+                      style: TextStyle(color: Colors.black),
+                      controller: extendController,
+                      focusNode: extendFocus,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey[300],
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                      validator: (value) {
+                        var n = int.tryParse(value);
+                        if (n == null || n <= 0) {
+                          return 'Please enter a positive number.';
+                        }
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               ),
+
             ),
             // Row(
             //   children: <Widget>[
@@ -183,7 +233,8 @@ class _SettingsFormState extends State<SettingsForm> {
             // ),
             SizedBox(height: 80),
             RaisedButton(
-              onPressed: () {
+              onPressed: () async {
+                await savePreferences();
                 startCounter();
               },
               color: Colors.cyanAccent,
