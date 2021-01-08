@@ -148,35 +148,35 @@ App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
                     },
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    SizedBox(width: 15),
-                    Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child:  TextFormField(
-                    cursorColor: Colors.cyanAccent,
-                    style: TextStyle(color: Colors.black),
-                    controller: messageController,
-                    focusNode: messageFocus,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => startCounter(),
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[300],
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)
-                            ),
-                            borderSide: BorderSide(
-                                color: Colors.grey
-                            )
-                        )
-                    ),
-                  )
-                ),
+                // Row(
+                //   children: <Widget>[
+                //     SizedBox(width: 15),
+                //     Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
+                //   ],
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.all(15),
+                //   child:  TextFormField(
+                //     cursorColor: Colors.cyanAccent,
+                //     style: TextStyle(color: Colors.black),
+                //     controller: messageController,
+                //     focusNode: messageFocus,
+                //     textInputAction: TextInputAction.done,
+                //     onFieldSubmitted: (_) => startCounter(),
+                //     decoration: InputDecoration(
+                //         filled: true,
+                //         fillColor: Colors.grey[300],
+                //         enabledBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.all(
+                //                 Radius.circular(10)
+                //             ),
+                //             borderSide: BorderSide(
+                //                 color: Colors.grey
+                //             )
+                //         )
+                //     ),
+                //   )
+                // ),
                 SizedBox(height: 80),
                 RaisedButton(
                   onPressed: () {
