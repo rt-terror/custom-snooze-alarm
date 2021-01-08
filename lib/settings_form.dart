@@ -3,6 +3,13 @@ import 'package:screen/screen.dart';
 
 import './timer_page.dart';
 
+final String aboutText = """
+Created By: Adam Stevenson
+Created For: Thomas Sarlitto, Virtual Tax Preparer
+
+App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
+    """;
+
 class SettingsForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SettingsFormState();
@@ -38,12 +45,6 @@ class _SettingsFormState extends State<SettingsForm> {
 
   @override
   Widget build(BuildContext context) {
-    var aboutText = """
-Created By: Adam Stevenson
-Created For: Thomas Sarlitto, Virtual Tax Preparer
-
-App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
-    """;
 
     return Scaffold(
       drawer: Drawer(
