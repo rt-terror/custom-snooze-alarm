@@ -15,6 +15,9 @@ class _ClickPageState extends State<ClickPage> {
   @override
   build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Repeating Custom Timer'),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
