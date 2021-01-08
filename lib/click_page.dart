@@ -64,7 +64,38 @@ class _ClickPageState extends State<ClickPage> {
                 ),
               ),
             ),
-          )
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: RaisedButton(
+              onPressed: () {
+                //Pop 2 times
+                int count = 0;
+                Navigator.of(context).popUntil((_) => count++ >= 2);
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
+                  left: 50,
+                  right: 50,
+                ),
+                child: Text(
+                  "Exit",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
