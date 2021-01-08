@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:screen/screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './timer_page.dart';
+
+final String aboutText = """
+Created By: Adam Stevenson
+Created For: Thomas Sarlitto, Virtual Tax Preparer
+
+App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
+    """;
 
 class SettingsForm extends StatefulWidget {
   @override
@@ -15,6 +23,9 @@ class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
   final messageFocus = FocusNode();
+
+  //for data persistence
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   void dispose() {
@@ -38,12 +49,6 @@ class _SettingsFormState extends State<SettingsForm> {
 
   @override
   Widget build(BuildContext context) {
-    var aboutText = """
-Created By: Adam Stevenson
-Created For: Thomas Sarlitto, Virtual Tax Preparer
-
-App icons made by Smashicons www.flaticon.com is licensed by CC 3.0 BY
-    """;
 
     return Scaffold(
       backgroundColor: Colors.grey[900],
