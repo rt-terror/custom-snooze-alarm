@@ -12,19 +12,27 @@ class ClickPage extends StatefulWidget {
 }
 
 class _ClickPageState extends State<ClickPage> {
-  _ClickPageState() {
-    new Timer(Duration(seconds: 3), () {
-      Navigator.pop(context);
-    });
-  }
-
   @override
   build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.green,
-        body: Center(
-            child: Text(widget.message,
-                textAlign: TextAlign.center,
-                style: new TextStyle(fontSize: 100.0))));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+                child: Text(widget.message,
+                    textAlign: TextAlign.center,
+                    style: new TextStyle(fontSize: 100.0))),
+            Center(
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Snooze', style: TextStyle(fontSize: 20)),
+                color: Colors.green.shade800,
+              ),
+            )
+          ],
+        ));
   }
 }

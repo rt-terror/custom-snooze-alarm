@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           accentColor: Colors.green,
           buttonColor: Colors.green,
-
           accentColorBrightness: Brightness.dark),
       home: SettingsForm(),
     );
