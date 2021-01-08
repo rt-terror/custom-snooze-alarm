@@ -6,7 +6,9 @@ class ClickPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ClickPageState();
 
-  ClickPage({Key key}) : super(key: key);
+  ClickPage({Key key, this.isFlashing}) : super(key: key);
+
+  final bool isFlashing;
 }
 
 class _ClickPageState extends State<ClickPage> {
@@ -15,11 +17,13 @@ class _ClickPageState extends State<ClickPage> {
   @override
   void initState() {
     super.initState();
-    timer = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        isCyanBackground = !isCyanBackground;
+    if (widget.isFlashing) {
+      timer = new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
+        setState(() {
+          isCyanBackground = !isCyanBackground;
+        });
       });
-    });
+    }
   }
 
   @override

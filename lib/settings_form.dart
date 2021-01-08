@@ -21,6 +21,7 @@ class _SettingsFormState extends State<SettingsForm> {
   final extendController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final extendFocus = FocusNode();
+  bool isFlashing = false;
 
   //for data persistence
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -37,7 +38,11 @@ class _SettingsFormState extends State<SettingsForm> {
       await Navigator.push(context, MaterialPageRoute(builder: (context) {
         var from = int.tryParse(fromController.value.text);
         var extend = int.tryParse(extendController.value.text);
-        return TimerPage(from: from, extend: extend);
+        return TimerPage(
+          from: from,
+          extend: extend,
+          isFlashing: isFlashing,
+        );
       }));
       Screen.keepOn(false);
     }
@@ -60,22 +65,6 @@ class _SettingsFormState extends State<SettingsForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      // drawer: Drawer(
-      //     child: ListView(
-      //   children: <Widget>[
-      //     AboutListTile(
-      //       icon: Icon(Icons.info),
-      //       child: Text('About'),
-      //       applicationName: 'Repeating Custom Timer',
-      //       aboutBoxChildren: <Widget>[
-      //         Text(
-      //           aboutText,
-      //           style: TextStyle(fontSize: 12),
-      //         )
-      //       ],
-      //     )
-      //   ],
-      // )),
       appBar: AppBar(
         title: Text('Repeating Custom Timer'),
       ),
@@ -205,35 +194,20 @@ class _SettingsFormState extends State<SettingsForm> {
                 },
               ),
             ),
-            // Row(
-            //   children: <Widget>[
-            //     SizedBox(width: 15),
-            //     Text("Message to display:", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[100])),
-            //   ],
-            // ),
-            // Padding(
-            //   padding: EdgeInsets.all(15),
-            //   child:  TextFormField(
-            //     cursorColor: Colors.cyanAccent,
-            //     style: TextStyle(color: Colors.black),
-            //     controller: messageController,
-            //     focusNode: messageFocus,
-            //     textInputAction: TextInputAction.done,
-            //     onFieldSubmitted: (_) => startCounter(),
-            //     decoration: InputDecoration(
-            //         filled: true,
-            //         fillColor: Colors.grey[300],
-            //         enabledBorder: OutlineInputBorder(
-            //             borderRadius: BorderRadius.all(
-            //                 Radius.circular(10)
-            //             ),
-            //             borderSide: BorderSide(
-            //                 color: Colors.grey
-            //             )
-            //         )
-            //     ),
-            //   )
-            // ),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 15),
+                Text("Flashing background"),
+                Checkbox(
+                    activeColor: Colors.cyan,
+                    value: isFlashing,
+                    onChanged: (e) {
+                      setState(() {
+                        isFlashing = e;
+                      });
+                    }),
+              ],
+            ),
             SizedBox(height: 80),
             RaisedButton(
               onPressed: () async {
