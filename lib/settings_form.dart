@@ -53,7 +53,7 @@ class _SettingsFormState extends State<SettingsForm> {
 
   Future<Map> getPreferences() async {
     if(time == null || extendTime == null){
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      SharedPreferences prefs = await _prefs;
       String loadedTime = prefs.getString("time");
       time = loadedTime == null ? "" : loadedTime;
       String loadedExtendTime = prefs.getString("extendTime");
