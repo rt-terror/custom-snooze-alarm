@@ -3,7 +3,7 @@
 
 <p align="center"><img width="100%" src="images/poster.png"/></p>
 
-CustomSnooze is a mobile application for iOS and Android that allows users to set custom snooze times and set alarms based on that.
+CustomSnooze is a mobile application for iOS and Android that allows users to set alarms with customisable snooze intervals.
 
 CustomSnooze was built over a course of 24 hours for the hackathon [Hack&Roll 2021](https://hacknroll.nushackers.org). The team members are:
 * [Tan Yu Li, James](https://www.github.com/iamjamestan)
