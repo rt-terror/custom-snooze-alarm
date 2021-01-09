@@ -1,16 +1,48 @@
-# custom_snooze_alarm
+<h1 align="center">CustomSnooze</h1>
+<p align="center"><em>A Seamless Way to Personalise your Snooze Alarms</em></p>
 
-A mobile application for iOS and Android that allows users to customise snooze timings for alarms
+CustomSnooze is a mobile application for iOS and Android that allows users to set custom snooze times and set alarms based on that.
 
-## Getting Started
+CustomSnooze was built over a course of 24 hours for the hackathon [Hack&Roll 2021](https://hacknroll.nushackers.org). The team members are:
+* [Tan Yu Li, James](https://www.github.com/iamjamestan)
+* [Andrea Tan Ker Yue](https://github.com/andreatanky)
+* [Nicholas Toh](https://github.com/nicktohzyu)
 
-This project is a starting point for a Flutter application.
+The core packages/dependencies used are:
+* [shared_preferences](https://pub.dev/packages/shared_preferences)
+* [assets_audio_player](https://pub.dev/packages/assets_audio_player)
 
-A few resources to get you started if this is your first Flutter project:
+Other packages used for both production and development can be found in [pubspec.yaml](pubspec.yaml).
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+This project was developed with [Flutter](https://flutter.dev/) and [Dart](https://dart.dev/).
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+
+With CustomSnooze, you get the following benefits by using our alarm:
+* Customisable snooze interval
+* Automatically stored preferences even upon quitting the app
+* Ability to postpone alarm by snooze interval before alarm rings
+* Toggleable flashing background upon alarm ring.
+
+Simply hit the SNOOZE button. It's that easy!
+
+## Project Structure
+```bash
+custom_snooze_alarm
+├── android/
+├── assets/
+├── build/
+├── fonts/
+├── images/
+├── ios/
+├── sounds/
+├── test/
+└── lib/
+    ├── first_view/
+    ├── click_page.dart
+    ├── countdown.dart
+    ├── main.dart
+    ├── settings_form.dart
+    └── timer_page.dart
+
+```
