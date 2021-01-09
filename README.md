@@ -1,7 +1,7 @@
 <h1 align="center">CustomSnooze</h1>
 <p align="center"><em>A Seamless Way to Personalise your Snooze Alarms</em></p>
 
-<p align="center"><img width="80%" src="images/poster.png"/></p>
+<p align="center"><img width="100%" src="images/poster.png"/></p>
 
 CustomSnooze is a mobile application for iOS and Android that allows users to set custom snooze times and set alarms based on that.
 
@@ -25,8 +25,6 @@ With CustomSnooze, you get the following benefits by using our alarm:
 * Automatically stored preferences even upon quitting the app
 * Ability to postpone alarm by snooze interval before alarm rings
 * Toggleable flashing background upon alarm ring.
-
-Simply hit the SNOOZE button. It's that easy!
 
 ## Project Structure
 ```bash
